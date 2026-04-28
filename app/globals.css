@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces */
+  --color-bg: #0f1a14;
+  --color-bg-2: #162010;
+  --color-bg-3: #1e2d1a;
+  --color-card: #1a2a16;
+
+  /* Brand accents */
+  --color-green: #4ade80;
+  --color-green-dim: #2d6e47;
+  --color-gold: #d4a94a;
+  --color-fast-blue: #60a5fa;
+  --color-purple-soft: #b39dff;
+
+  /* Foreground / text */
+  --color-fg: #e8f0e4;
+  --color-fg-mid: #8aab82;
+  --color-fg-dim: #4d6648;
+
+  /* Fonts (wired by next/font in layout.tsx) */
+  --font-display: var(--font-lora);
+  --font-body: var(--font-dm-sans);
+
+  /* Radius */
+  --radius-card: 14px;
+}
+
+:root {
+  /* alpha tokens — used directly in components for borders/glows */
+  --green-glow: rgba(74, 222, 128, 0.15);
+  --green-glow-strong: rgba(74, 222, 128, 0.3);
+  --gold-glow: rgba(212, 169, 74, 0.15);
+  --fast-blue-glow: rgba(96, 165, 250, 0.12);
+  --purple-glow: rgba(167, 143, 255, 0.15);
+  --quran-glow: rgba(74, 222, 128, 0.12);
+  --border-1: rgba(74, 222, 128, 0.12);
+  --border-2: rgba(74, 222, 128, 0.22);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Subtle grain texture overlay (matches prototype) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* hide scrollbar utility for the day strip */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Tab fade — used by app/(app)/template.tsx so each route fades in on nav. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 180ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in {
+    animation: none;
+  }
+}

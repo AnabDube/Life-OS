@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f1a14">
+<title>My Spiritual Habits</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1a14;
+    --bg2: #162010;
+    --bg3: #1e2d1a;
+    --card: #1a2a16;
+    --green: #4ade80;
+    --green-dim: #2d6e47;
+    --green-glow: rgba(74,222,128,0.15);
+    --gold: #d4a94a;
+    --gold-dim: rgba(212,169,74,0.15);
+    --text: #e8f0e4;
+    --text2: #8aab82;
+    --text3: #4d6648;
+    --border: rgba(74,222,128,0.12);
+    --border2: rgba(74,222,128,0.22);
+    --radius: 14px;
+    --fast-blue: #60a5fa;
+    --fast-blue-dim: rgba(96,165,250,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* subtle grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .app { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 80px; }
+
+  /* Header */
+  .app-header {
+    padding: 52px 20px 24px;
+    background: linear-gradient(180deg, rgba(74,222,128,0.06) 0%, transparent 100%);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .app-header .bismillah {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.85;
+  }
+  .app-header h1 {
+    font-family: 'Lora', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .app-header h1 span { color: var(--green); }
+  .app-header p {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 18px 16px;
+  }
+  .stat {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--green);
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Week nav */
+  .week-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 14px;
+  }
+  .nav-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border2);
+    background: var(--card);
+    color: var(--text2);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .nav-btn:active { background: var(--bg3); }
+  .week-lbl {
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 500;
+  }
+
+  /* Day scroll */
+  .day-strip {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .day-strip::-webkit-scrollbar { display: none; }
+  .day-pill {
+    flex: 0 0 auto;
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 54px;
+  }
+  .day-pill.active {
+    background: var(--green-glow);
+    border-color: var(--green);
+  }
+  .day-pill.today { border-color: var(--gold); }
+  .day-pill .dp-day { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; }
+  .day-pill .dp-num { font-size: 16px; font-weight: 500; color: var(--text); margin-top: 1px; }
+  .day-pill.active .dp-num { color: var(--green); }
+  .day-pill.today .dp-num { color: var(--gold); }
+  .day-pill .dp-dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--green-dim); margin: 3px auto 0;
+    display: none;
+  }
+  .day-pill.has-done .dp-dot { display: block; }
+
+  /* Habits list */
+  .section-title {
+    padding: 4px 16px 10px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    font-weight: 500;
+  }
+
+  .habits-list { padding: 0 16px; }
+
+  .habit-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 14px;
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .habit-row:active { transform: scale(0.98); }
+  .habit-row.done { background: var(--green-glow); border-color: rgba(74,222,128,0.3); }
+  .habit-row.na { opacity: 0.35; cursor: default; }
+
+  .check-circle {
+    width: 30px; height: 30px; flex: 0 0 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--text3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .habit-row.done .check-circle {
+    background: var(--green);
+    border-color: var(--green);
+    color: #0f1a14;
+  }
+  .habit-row.na .check-circle { border-style: dashed; }
+
+  .habit-info { flex: 1; min-width: 0; }
+  .habit-info .hname {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .habit-row.done .hname { color: var(--green); }
+  .habit-info .hdetail {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+
+  .habit-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    flex: 0 0 auto;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+  .tag-dhikr { background: rgba(167,143,255,0.15); color: #b39dff; }
+  .tag-quran { background: rgba(74,222,128,0.12); color: #4ade80; }
+  .tag-ibadah { background: var(--gold-dim); color: var(--gold); }
+  .tag-fast { background: var(--fast-blue-dim); color: var(--fast-blue); }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    padding: 0 16px 18px;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: var(--bg3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-dim), var(--green));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .progress-label span:last-child { color: var(--green); font-weight: 500; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--green);
+    color: #0f1a14;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 24px;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .na-label {
+    font-size: 11px;
+    color: var(--text3);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-header">
+    <div class="bismillah">Bismillah &mdash; Starting 28 April 2026</div>
+    <h1>My Spiritual<br><span>Habits</span></h1>
+    <p>Tap a habit to mark it complete for the selected day</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" id="s-today">0/0</div>
+      <div class="stat-lbl">Today</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="s-week">0%</div>
+      <div class="stat-lbl">This week</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="s-total">0</div>
+      <div class="stat-lbl">All time</div>
+    </div>
+  </div>
+
+  <div class="week-nav">
+    <button class="nav-btn" onclick="changeWeek(-1)">&#8592;</button>
+    <span class="week-lbl" id="week-lbl"></span>
+    <button class="nav-btn" onclick="changeWeek(1)">&#8594;</button>
+  </div>
+
+  <div class="day-strip" id="day-strip"></div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span id="prog-label">Today's progress</span>
+      <span id="prog-pct">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="section-title" id="day-title"></div>
+  <div class="habits-list" id="habits-list"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const HABITS = [
+  { name: "La ilaha illa Allah",              detail: "× 100",      tag: "dhikr",  tagLabel: "Dhikr",   activeOn: null },
+  { name: "La hawla wala quwwata illa billa", detail: "× 100",      tag: "dhikr",  tagLabel: "Dhikr",   activeOn: null },
+  { name: "Astaghfirullah",                   detail: "× 100",      tag: "dhikr",  tagLabel: "Dhikr",   activeOn: null },
+  { name: "Salawat",                          detail: "× 100",      tag: "dhikr",  tagLabel: "Dhikr",   activeOn: null },
+  { name: "Surah Al-Baqarah",                 detail: "3 days complete", tag: "quran",  tagLabel: "Quran",   activeOn: null },
+  { name: "Quran translation",                detail: "Page to page",    tag: "quran",  tagLabel: "Quran",   activeOn: null },
+  { name: "Quran + at least 1 surah",         detail: "Daily",           tag: "quran",  tagLabel: "Quran",   activeOn: null },
+  { name: "Tasbeeh, Tahmeed, Takbir",         detail: "× 100",      tag: "dhikr",  tagLabel: "Dhikr",   activeOn: null },
+  { name: "Surah Al-Mulk",                    detail: "Every night",     tag: "ibadah", tagLabel: "Ibadah",  activeOn: null },
+  { name: "Surah Al-Waqiah",                  detail: "Every night",     tag: "ibadah", tagLabel: "Ibadah",  activeOn: null },
+  { name: "Surah Al-Kahf",                    detail: "Every Friday",    tag: "ibadah", tagLabel: "Ibadah",  activeOn: [5] },
+  { name: "Fast Mondays & Thursdays",         detail: "",                tag: "fast",   tagLabel: "Fasting", activeOn: [1,4] },
+];
+
+const START = new Date(2026, 3, 28);
+const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let weekOffset = 0;
+let selectedDate = null;
+let state = {};
+
+function loadState() {
+  try { const s = localStorage.getItem('sht_v3'); if (s) state = JSON.parse(s); } catch(e) {}
+}
+function saveState() {
+  try { localStorage.setItem('sht_v3', JSON.stringify(state)); } catch(e) {}
+}
+
+function dateStr(d) {
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function cellKey(d, hi) { return dateStr(d) + ':' + hi; }
+
+function getMondayOfWeek(offset) {
+  const d = new Date(START);
+  d.setDate(d.getDate() + offset * 7);
+  return d;
+}
+function getWeekDays() {
+  const mon = getMondayOfWeek(weekOffset);
+  return Array.from({length:7}, (_,i) => { const d = new Date(mon); d.setDate(d.getDate()+i); return d; });
+}
+
+function today() { const d = new Date(); d.setHours(0,0,0,0); return d; }
+function isFuture(d) { const t = today(); const dd = new Date(d); dd.setHours(0,0,0,0); return dd > t; }
+function isBefore(d) { const s = new Date(START); s.setHours(0,0,0,0); const dd = new Date(d); dd.setHours(0,0,0,0); return dd < s; }
+function isActive(h, d) { return !h.activeOn || h.activeOn.includes(d.getDay()); }
+
+function initSelectedDate() {
+  const t = today();
+  const days = getWeekDays();
+  const match = days.find(d => dateStr(d) === dateStr(t));
+  selectedDate = match ? new Date(t) : new Date(days[0]);
+}
+
+function renderWeekNav() {
+  const days = getWeekDays();
+  const s = days[0], e = days[6];
+  document.getElementById('week-lbl').textContent =
+    MONTHS_SHORT[s.getMonth()] + ' ' + s.getDate() + ' — ' +
+    MONTHS_SHORT[e.getMonth()] + ' ' + e.getDate();
+}
+
+function renderDayStrip() {
+  const days = getWeekDays();
+  const t = today();
+  const strip = document.getElementById('day-strip');
+  strip.innerHTML = '';
+  days.forEach(d => {
+    const isToday = dateStr(d) === dateStr(t);
+    const isSel = dateStr(d) === dateStr(selectedDate);
+    const before = isBefore(d);
+    const doneCnt = HABITS.filter((h,hi) => isActive(h,d) && state[cellKey(d,hi)] === 'done').length;
+    const pill = document.createElement('div');
+    pill.className = 'day-pill' + (isSel ? ' active' : '') + (isToday ? ' today' : '') + (doneCnt > 0 ? ' has-done' : '');
+    pill.innerHTML = '<div class="dp-day">' + DAY_SHORT[d.getDay()] + '</div>' +
+      '<div class="dp-num">' + d.getDate() + '</div>' +
+      '<div class="dp-dot"></div>';
+    if (!before || doneCnt > 0) {
+      pill.addEventListener('click', () => {
+        selectedDate = new Date(d);
+        render();
+        pill.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+      });
+    } else {
+      pill.style.opacity = '0.4';
+    }
+    strip.appendChild(pill);
+  });
+  setTimeout(() => {
+    const activePill = strip.querySelector('.day-pill.active');
+    if (activePill) activePill.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  }, 50);
+}
+
+function renderHabits() {
+  const d = selectedDate;
+  const future = isFuture(d);
+  const before = isBefore(d);
+  const dayName = DAY_SHORT[d.getDay()] + ', ' + d.getDate() + ' ' + MONTHS_SHORT[d.getMonth()];
+  document.getElementById('day-title').textContent = dayName;
+
+  const list = document.getElementById('habits-list');
+  list.innerHTML = '';
+
+  let possible = 0, done = 0;
+
+  HABITS.forEach((h, hi) => {
+    const active = isActive(h, d);
+    const isDone = state[cellKey(d, hi)] === 'done';
+    const na = !active || before;
+    if (active && !before) { possible++; if (isDone) done++; }
+
+    const row = document.createElement('div');
+    row.className = 'habit-row' + (isDone ? ' done' : '') + (na ? ' na' : '');
+
+    row.innerHTML = '<div class="check-circle">' + (isDone ? '✓' : (na ? '—' : '')) + '</div>' +
+      '<div class="habit-info">' +
+        '<div class="hname">' + h.name + '</div>' +
+        (h.detail ? '<div class="hdetail">' + h.detail + '</div>' : '') +
+      '</div>' +
+      '<span class="habit-tag tag-' + h.tag + '">' + h.tagLabel + '</span>';
+
+    if (!na && !future) {
+      row.addEventListener('click', () => toggleHabit(d, hi, h));
+    } else if (!active) {
+      row.querySelector('.check-circle').innerHTML = '';
+      row.querySelector('.check-circle').style.opacity = '0';
+      const tag = row.querySelector('.habit-tag');
+      const naSpan = document.createElement('span');
+      naSpan.className = 'na-label';
+      naSpan.textContent = 'not today';
+      tag.replaceWith(naSpan);
+    }
+
+    list.appendChild(row);
+  });
+
+  const pct = possible ? Math.round(done/possible*100) : 0;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = dayName + ' progress';
+
+  updateStats();
+}
+
+function toggleHabit(d, hi, h) {
+  const k = cellKey(d, hi);
+  const wasDone = state[k] === 'done';
+  state[k] = wasDone ? '' : 'done';
+  saveState();
+  if (!wasDone) showToast(h.name + ' ✓');
+  render();
+}
+
+function updateStats() {
+  const t = today();
+  let tDone = 0, tPoss = 0;
+  HABITS.forEach((h,hi) => {
+    if (isActive(h,t) && !isBefore(t) && !isFuture(t)) {
+      tPoss++;
+      if (state[cellKey(t,hi)] === 'done') tDone++;
+    }
+  });
+
+  const days = getWeekDays();
+  let wDone = 0, wPoss = 0;
+  days.forEach(d => {
+    HABITS.forEach((h,hi) => {
+      if (isActive(h,d) && !isBefore(d) && !isFuture(d)) {
+        wPoss++;
+        if (state[cellKey(d,hi)] === 'done') wDone++;
+      }
+    });
+  });
+
+  const total = Object.values(state).filter(v => v === 'done').length;
+  document.getElementById('s-today').textContent = tDone + '/' + tPoss;
+  document.getElementById('s-week').textContent = wPoss ? Math.round(wDone/wPoss*100) + '%' : '0%';
+  document.getElementById('s-total').textContent = total;
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function changeWeek(dir) {
+  weekOffset += dir;
+  const days = getWeekDays();
+  const t = today();
+  const match = days.find(d => dateStr(d) === dateStr(t));
+  selectedDate = match ? new Date(t) : new Date(days[0]);
+  render();
+}
+
+function render() {
+  renderWeekNav();
+  renderDayStrip();
+  renderHabits();
+}
+
+function init() {
+  loadState();
+  const t = today();
+  const diff = Math.floor((t - START) / (7*24*3600*1000));
+  weekOffset = diff >= 0 ? Math.floor(diff) : 0;
+  selectedDate = isBefore(t) || isFuture(t) ? new Date(START) : new Date(t);
+  render();
+}
+
+init();
+</script>
+</body>
+</html>
