@@ -26,35 +26,48 @@ function isPublic(pathname: string): boolean {
  * Set-Cookie headers must reach the browser via the response we return.
  */
 export async function proxy(request: NextRequest) {
-  let response = NextResponse.next({ request });
-
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          for (const { name, value } of cookiesToSet) {
-            request.cookies.set(name, value);
-          }
-          response = NextResponse.next({ request });
-          for (const { name, value, options } of cookiesToSet) {
-            response.cookies.set(name, value, options);
-          }
-        },
-      },
-    },
-  );
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   const pathname = request.nextUrl.pathname;
   const publicRoute = isPublic(pathname);
+
+  // If Supabase env vars aren't configured, never crash — let public routes
+  // through, redirect everything else to /login so the user sees a real screen.
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anon) {
+    if (publicRoute) return NextResponse.next({ request });
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/login";
+    loginUrl.searchParams.set("error", "missing_env");
+    return NextResponse.redirect(loginUrl);
+  }
+
+  let response = NextResponse.next({ request });
+  const supabase = createServerClient<Database>(url, anon, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        for (const { name, value } of cookiesToSet) {
+          request.cookies.set(name, value);
+        }
+        response = NextResponse.next({ request });
+        for (const { name, value, options } of cookiesToSet) {
+          response.cookies.set(name, value, options);
+        }
+      },
+    },
+  });
+
+  // Catch any Supabase failure (bad key, network blip, outage) and degrade
+  // to "no user" rather than 500-ing the whole app.
+  let user: { id: string } | null = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch {
+    user = null;
+  }
 
   if (!user && !publicRoute) {
     const loginUrl = request.nextUrl.clone();
