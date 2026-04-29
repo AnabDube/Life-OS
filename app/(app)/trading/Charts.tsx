@@ -18,23 +18,24 @@ import {
   pnLByPairSeries,
   emotionsVsOutcomeSeries,
 } from "@/lib/trading-stats";
+import { useThemeColors } from "@/hooks/useThemeColors";
 import type { Trade } from "@/types";
 
 interface ChartsProps {
   trades: Trade[];
 }
 
-const GRID_STROKE = "rgba(74,222,128,0.08)";
-const AXIS_COLOR = "#8aab82";
-const TOOLTIP_STYLE: React.CSSProperties = {
-  backgroundColor: "#1a2a16",
-  border: "1px solid rgba(74,222,128,0.22)",
-  borderRadius: 10,
-  color: "#e8f0e4",
-  fontSize: 12,
-};
-
 export default function Charts({ trades }: ChartsProps) {
+  const c = useThemeColors();
+  const TOOLTIP_STYLE: React.CSSProperties = {
+    backgroundColor: c.card,
+    border: `1px solid ${c.border1}`,
+    borderRadius: 10,
+    color: c.fgMid,
+    fontSize: 12,
+  };
+  const GRID_STROKE = c.border1;
+  const AXIS_COLOR = c.fgMid;
   if (trades.length === 0) {
     return (
       <Card>
@@ -68,7 +69,7 @@ export default function Charts({ trades }: ChartsProps) {
               <Line
                 type="monotone"
                 dataKey="cumulative"
-                stroke="#4ade80"
+                stroke={c.green}
                 strokeWidth={2}
                 dot={false}
                 name="Cumulative P&L"
@@ -89,9 +90,9 @@ export default function Charts({ trades }: ChartsProps) {
               <XAxis dataKey="pair" stroke={AXIS_COLOR} tick={{ fontSize: 10 }} interval={0} />
               <YAxis stroke={AXIS_COLOR} tick={{ fontSize: 10 }} allowDecimals={false} />
               <Tooltip contentStyle={TOOLTIP_STYLE} />
-              <Legend wrapperStyle={{ fontSize: 11, color: "#8aab82" }} />
-              <Bar dataKey="wins" fill="#4ade80" name="Wins" />
-              <Bar dataKey="losses" fill="#f87171" name="Losses" />
+              <Legend wrapperStyle={{ fontSize: 11, color: c.fgMid }} />
+              <Bar dataKey="wins" fill={c.green} name="Wins" />
+              <Bar dataKey="losses" fill={c.danger} name="Losses" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -109,9 +110,9 @@ export default function Charts({ trades }: ChartsProps) {
                 <XAxis dataKey="emotion" stroke={AXIS_COLOR} tick={{ fontSize: 10 }} interval={0} />
                 <YAxis stroke={AXIS_COLOR} tick={{ fontSize: 10 }} allowDecimals={false} />
                 <Tooltip contentStyle={TOOLTIP_STYLE} />
-                <Legend wrapperStyle={{ fontSize: 11, color: "#8aab82" }} />
-                <Bar dataKey="wins" fill="#4ade80" name="Wins" />
-                <Bar dataKey="losses" fill="#f87171" name="Losses" />
+                <Legend wrapperStyle={{ fontSize: 11, color: c.fgMid }} />
+                <Bar dataKey="wins" fill={c.green} name="Wins" />
+                <Bar dataKey="losses" fill={c.danger} name="Losses" />
               </BarChart>
             </ResponsiveContainer>
           </div>

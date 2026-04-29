@@ -159,7 +159,7 @@ export default function AddHabitModal({ open, onClose, onCreate }: AddHabitModal
               })}
             </div>
           </fieldset>
-          {error ? <p role="alert" className="text-xs text-[#f87171]">{error}</p> : null}
+          {error ? <p role="alert" className="text-xs text-danger-text">{error}</p> : null}
           <button
             type="submit" disabled={submitting}
             className="mt-1 flex min-h-[44px] w-full items-center justify-center rounded-[10px] bg-green px-4 py-2 text-sm font-medium text-bg disabled:opacity-60"

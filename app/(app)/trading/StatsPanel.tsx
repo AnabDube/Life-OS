@@ -15,7 +15,7 @@ function dollar(n: number | null): string {
 
 function pnlTone(n: number | null | undefined): string {
   if (n === null || n === undefined || n === 0) return "text-fg";
-  return n > 0 ? "text-green" : "text-[#fca5a5]";
+  return n > 0 ? "text-green" : "text-danger-soft";
 }
 
 export default function TradingStatsPanel({ stats }: StatsPanelProps) {
@@ -36,7 +36,7 @@ export default function TradingStatsPanel({ stats }: StatsPanelProps) {
     {
       label: "Worst trade",
       value: dollar(stats.worstTrade),
-      tone: "text-[#fca5a5]",
+      tone: "text-danger-soft",
     },
   ];
 
@@ -83,7 +83,7 @@ export default function TradingStatsPanel({ stats }: StatsPanelProps) {
           <p className="font-[family-name:var(--font-display)] text-lg text-fg">
             <span className="text-green">{stats.wins}</span>
             <span className="text-fg-dim"> · </span>
-            <span className="text-[#fca5a5]">{stats.losses}</span>
+            <span className="text-danger-soft">{stats.losses}</span>
             <span className="text-fg-dim"> · </span>
             <span className="text-gold">{stats.breakeven}</span>
           </p>

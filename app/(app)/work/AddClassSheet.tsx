@@ -148,7 +148,7 @@ export default function AddClassSheet({ open, onClose, onCreate }: AddClassSheet
             />
           </label>
 
-          {error ? <p role="alert" className="text-xs text-[#f87171]">{error}</p> : null}
+          {error ? <p role="alert" className="text-xs text-danger-text">{error}</p> : null}
 
           <button
             type="submit" disabled={submitting}

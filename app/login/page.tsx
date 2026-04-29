@@ -26,7 +26,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         {error ? (
           <p
             role="alert"
-            className="mt-4 text-center text-xs text-[#f87171]"
+            className="mt-4 text-center text-xs text-danger-text"
           >
             {error === "missing_code"
               ? "That sign-in link was incomplete. Please request a new one."

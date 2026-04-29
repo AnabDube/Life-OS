@@ -20,7 +20,7 @@ const CATEGORIES: ReadonlyArray<{ value: TaskCategory; label: string }> = [
 ];
 
 const PRIORITIES: ReadonlyArray<{ value: TaskPriority; label: string; tone: string }> = [
-  { value: "high",   label: "High",   tone: "border-[#ef4444]/40 bg-[#ef4444]/15 text-[#fca5a5]" },
+  { value: "high",   label: "High",   tone: "border-danger/40 bg-danger/15 text-danger-soft" },
   { value: "medium", label: "Medium", tone: "border-gold/40 bg-gold/15 text-gold" },
   { value: "low",    label: "Low",    tone: "border-[var(--border-1)] bg-bg-2 text-fg-mid" },
 ];
@@ -162,7 +162,7 @@ export default function AddTaskSheet({
             />
           </label>
 
-          {error ? <p role="alert" className="text-xs text-[#f87171]">{error}</p> : null}
+          {error ? <p role="alert" className="text-xs text-danger-text">{error}</p> : null}
 
           <button
             type="submit" disabled={submitting}

@@ -110,7 +110,7 @@ export default function RulesClient({ userId, initialRules }: RulesClientProps) 
             </button>
           </div>
           {error ? (
-            <p role="alert" className="mt-2 text-[11px] text-[#f87171]">
+            <p role="alert" className="mt-2 text-[11px] text-danger-text">
               {error}
             </p>
           ) : null}
@@ -134,7 +134,7 @@ export default function RulesClient({ userId, initialRules }: RulesClientProps) 
                   checked={rule.is_active}
                   onChange={() => void handleToggle(rule)}
                   aria-label={rule.is_active ? "Disable rule" : "Enable rule"}
-                  className="h-4 w-4 accent-[#4ade80]"
+                  className="h-4 w-4 accent-green"
                 />
               </label>
               <input
@@ -154,7 +154,7 @@ export default function RulesClient({ userId, initialRules }: RulesClientProps) 
                 type="button"
                 onClick={() => void handleDelete(rule)}
                 aria-label="Delete rule"
-                className="flex h-9 w-9 items-center justify-center rounded-md text-fg-mid hover:bg-bg-3 hover:text-[#fca5a5]"
+                className="flex h-9 w-9 items-center justify-center rounded-md text-fg-mid hover:bg-bg-3 hover:text-danger-soft"
               >
                 <Trash2 size={14} />
               </button>

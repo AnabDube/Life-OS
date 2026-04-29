@@ -17,7 +17,7 @@ const SESSION_LABEL: Record<NonNullable<Trade["session"]>, string> = {
 function pnlTone(pnl: number | null): string {
   if (pnl === null) return "text-fg-mid";
   if (pnl > 0) return "text-green";
-  if (pnl < 0) return "text-[#fca5a5]";
+  if (pnl < 0) return "text-danger-soft";
   return "text-fg-mid";
 }
 
@@ -26,7 +26,7 @@ function outcomeStyle(outcome: Trade["outcome"]): string {
     case "win":
       return "border-green/40 bg-[var(--green-glow)] text-green";
     case "loss":
-      return "border-[#ef4444]/40 bg-[#ef4444]/10 text-[#fca5a5]";
+      return "border-danger/40 bg-danger/10 text-danger-soft";
     case "breakeven":
       return "border-gold/40 bg-gold/10 text-gold";
     default:
@@ -51,7 +51,7 @@ export default function TradeRow({ trade, onClick }: TradeRowProps) {
               "rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider " +
               (trade.direction === "buy"
                 ? "border-green/40 bg-[var(--green-glow)] text-green"
-                : "border-[#ef4444]/40 bg-[#ef4444]/10 text-[#fca5a5]")
+                : "border-danger/40 bg-danger/10 text-danger-soft")
             }
           >
             {trade.direction}

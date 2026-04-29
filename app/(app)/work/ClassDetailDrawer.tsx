@@ -130,7 +130,7 @@ export default function ClassDetailDrawer({
                 className={
                   "flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border min-h-[44px] px-3 text-sm transition-colors " +
                   (attended === false
-                    ? "border-[#ef4444]/40 bg-[#ef4444]/10 text-[#fca5a5]"
+                    ? "border-danger/40 bg-danger/10 text-danger-soft"
                     : "border-[var(--border-1)] bg-bg-2 text-fg-mid")
                 }
               >
@@ -170,7 +170,7 @@ export default function ClassDetailDrawer({
                         "mt-0.5 shrink-0 rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wider " +
                         (s.attended
                           ? "border-green/30 bg-[var(--green-glow)] text-green"
-                          : "border-[#ef4444]/30 bg-[#ef4444]/10 text-[#fca5a5]")
+                          : "border-danger/30 bg-danger/10 text-danger-soft")
                       }
                     >
                       {s.attended ? "Attended" : "Missed"}

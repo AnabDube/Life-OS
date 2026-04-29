@@ -11,7 +11,7 @@ interface TaskRowProps {
 }
 
 const PRIORITY_BADGE: Record<Task["priority"], string> = {
-  high: "border-[#ef4444]/30 bg-[#ef4444]/15 text-[#fca5a5]",
+  high: "border-danger/30 bg-danger/15 text-danger-soft",
   medium: "border-gold/30 bg-gold/15 text-gold",
   low: "border-[var(--border-1)] bg-bg-3 text-fg-mid",
 };
@@ -65,7 +65,7 @@ export default function TaskRow({ task, onToggleComplete, onDelete }: TaskRowPro
         type="button"
         aria-label={`Delete ${task.title}`}
         onClick={onDelete}
-        className="absolute inset-y-0 right-0 flex w-20 items-center justify-center bg-[#ef4444] text-white outline-none transition-opacity"
+        className="absolute inset-y-0 right-0 flex w-20 items-center justify-center bg-danger text-white outline-none transition-opacity"
       >
         <Trash2 size={16} />
       </button>

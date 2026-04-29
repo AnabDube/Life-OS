@@ -1,23 +1,109 @@
 @import "tailwindcss";
 
-@theme {
+/* ── Runtime theme tokens ──────────────────────────────────────────────────
+   Dark is the default. Adding `data-theme="light"` to <html> (done by the
+   pre-paint script in layout.tsx + ThemeToggle) flips every variable.
+   Tailwind utilities below reference these via @theme so the whole UI
+   switches without rebuilding. */
+
+:root {
   /* Surfaces */
-  --color-bg: #0f1a14;
-  --color-bg-2: #162010;
-  --color-bg-3: #1e2d1a;
-  --color-card: #1a2a16;
+  --bg: #0f1a14;
+  --bg-2: #162010;
+  --bg-3: #1e2d1a;
+  --card: #1a2a16;
 
-  /* Brand accents */
-  --color-green: #4ade80;
-  --color-green-dim: #2d6e47;
-  --color-gold: #d4a94a;
-  --color-fast-blue: #60a5fa;
-  --color-purple-soft: #b39dff;
+  /* Brand */
+  --green: #4ade80;
+  --green-dim: #2d6e47;
+  --gold: #d4a94a;
 
-  /* Foreground / text */
-  --color-fg: #e8f0e4;
-  --color-fg-mid: #8aab82;
-  --color-fg-dim: #4d6648;
+  /* Text */
+  --fg: #e8f0e4;
+  --fg-mid: #8aab82;
+  --fg-dim: #4d6648;
+
+  /* Semantic accents */
+  --danger: #ef4444;
+  --danger-soft: #fca5a5;
+  --danger-text: #f87171;
+  --purple: #b39dff;
+  --purple-soft: #c4b5fd;
+  --mint: rgba(74, 222, 128, 0.15);
+  --cream: rgba(212, 169, 74, 0.15);
+
+  /* Alphas / borders / glows */
+  --green-glow: rgba(74, 222, 128, 0.15);
+  --green-glow-strong: rgba(74, 222, 128, 0.3);
+  --gold-glow: rgba(212, 169, 74, 0.15);
+  --border-1: rgba(74, 222, 128, 0.12);
+  --border-2: rgba(74, 222, 128, 0.22);
+
+  /* Card shadow — none in dark, soft in light */
+  --card-shadow: none;
+}
+
+[data-theme="light"] {
+  /* Surfaces — soft mint / cream, never pure white background */
+  --bg: #f5f9f0;
+  --bg-2: #e8f5e2;
+  --bg-3: #d8edd0;
+  --card: #ffffff;
+
+  /* Brand — accessible greens / muted gold */
+  --green: #2d7a3a;
+  --green-dim: #4a9c5a;
+  --gold: #b8860b;
+
+  /* Text */
+  --fg: #1a2e1a;
+  --fg-mid: #5a7a5a;
+  --fg-dim: #8aaf8a;
+
+  /* Semantic */
+  --danger: #dc2626;
+  --danger-soft: #ef4444;
+  --danger-text: #b91c1c;
+  --purple: #5b3fc4;
+  --purple-soft: #7c5cf0;
+  --mint: #e8f5e2;
+  --cream: #fff8e8;
+
+  /* Glows — gentler in light */
+  --green-glow: rgba(45, 122, 58, 0.10);
+  --green-glow-strong: rgba(45, 122, 58, 0.18);
+  --gold-glow: rgba(184, 134, 11, 0.12);
+  --border-1: rgba(74, 160, 80, 0.15);
+  --border-2: rgba(74, 160, 80, 0.30);
+
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Tailwind theme bindings ───────────────────────────────────────────────
+   Each --color-X here registers a Tailwind utility (bg-bg, text-fg, etc.).
+   Values reference the runtime tokens above so utilities switch live. */
+
+@theme {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-card: var(--card);
+
+  --color-green: var(--green);
+  --color-green-dim: var(--green-dim);
+  --color-gold: var(--gold);
+
+  --color-fg: var(--fg);
+  --color-fg-mid: var(--fg-mid);
+  --color-fg-dim: var(--fg-dim);
+
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-text: var(--danger-text);
+  --color-purple: var(--purple);
+  --color-purple-soft: var(--purple-soft);
+  --color-mint: var(--mint);
+  --color-cream: var(--cream);
 
   /* Fonts (wired by next/font in layout.tsx) */
   --font-display: var(--font-lora);
@@ -27,34 +113,25 @@
   --radius-card: 14px;
 }
 
-:root {
-  /* alpha tokens — used directly in components for borders/glows */
-  --green-glow: rgba(74, 222, 128, 0.15);
-  --green-glow-strong: rgba(74, 222, 128, 0.3);
-  --gold-glow: rgba(212, 169, 74, 0.15);
-  --fast-blue-glow: rgba(96, 165, 250, 0.12);
-  --purple-glow: rgba(167, 143, 255, 0.15);
-  --quran-glow: rgba(74, 222, 128, 0.12);
-  --border-1: rgba(74, 222, 128, 0.12);
-  --border-2: rgba(74, 222, 128, 0.22);
-}
-
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
-  background: var(--color-bg);
-  color: var(--color-fg);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
-/* Subtle grain texture overlay (matches prototype) */
+/* Subtle grain texture overlay (matches prototype). Reduce opacity in light. */
 body::before {
   content: "";
   position: fixed;
@@ -63,6 +140,9 @@ body::before {
   pointer-events: none;
   z-index: 0;
   opacity: 0.6;
+}
+[data-theme="light"] body::before {
+  opacity: 0.25;
 }
 
 /* hide scrollbar utility for the day strip */
@@ -91,4 +171,9 @@ body::before {
   .animate-fade-in {
     animation: none;
   }
+}
+
+/* Card shadow — applied to the shared Card component in light mode only. */
+.theme-card-shadow {
+  box-shadow: var(--card-shadow);
 }

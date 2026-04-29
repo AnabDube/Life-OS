@@ -59,7 +59,7 @@ export default function LoginForm({ next }: LoginFormProps) {
       {state.error ? (
         <p
           role="alert"
-          className="text-center text-xs text-[#f87171]"
+          className="text-center text-xs text-danger-text"
         >
           {state.error}
         </p>

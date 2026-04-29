@@ -6,7 +6,7 @@ interface PriorityTasksProps {
 }
 
 const PRIORITY_BADGE: Record<Task["priority"], string> = {
-  high: "bg-[#ef4444]/15 text-[#fca5a5] border-[#ef4444]/25",
+  high: "bg-danger/15 text-danger-soft border-danger/25",
   medium: "bg-gold/15 text-gold border-gold/25",
   low: "bg-bg-3 text-fg-mid border-[var(--border-1)]",
 };

@@ -238,7 +238,7 @@ export default function AddTradeDrawer({ open, onClose, userId, todayIso, rules,
                     (direction === d
                       ? d === "buy"
                         ? "border-green/50 bg-[var(--green-glow)] text-green"
-                        : "border-[#ef4444]/50 bg-[#ef4444]/15 text-[#fca5a5]"
+                        : "border-danger/50 bg-danger/15 text-danger-soft"
                       : "border-[var(--border-1)] bg-bg-2 text-fg-mid")
                   }
                 >{d}</button>
@@ -257,7 +257,7 @@ export default function AddTradeDrawer({ open, onClose, userId, todayIso, rules,
               <p className="text-[10px] uppercase tracking-wider text-fg-dim">Auto-calculated</p>
               <p className="mt-1 flex items-center justify-between font-mono text-sm tabular-nums">
                 <span className="text-fg">{computed.pips === null ? "—" : `${computed.pips.toFixed(1)} pips`}</span>
-                <span className={computed.pnl === null ? "text-fg-mid" : computed.pnl >= 0 ? "text-green" : "text-[#fca5a5]"}>
+                <span className={computed.pnl === null ? "text-fg-mid" : computed.pnl >= 0 ? "text-green" : "text-danger-soft"}>
                   {computed.pnl === null ? "—" : `${computed.pnl >= 0 ? "+" : ""}$${computed.pnl.toFixed(2)}`}
                 </span>
               </p>
@@ -336,7 +336,7 @@ export default function AddTradeDrawer({ open, onClose, userId, todayIso, rules,
                               if (checked) n.delete(r.id); else n.add(r.id);
                               return n;
                             })}
-                            className="mt-0.5 h-4 w-4 accent-[#4ade80]"
+                            className="mt-0.5 h-4 w-4 accent-green"
                           />
                           <span>{r.rule}</span>
                         </label>
@@ -347,7 +347,7 @@ export default function AddTradeDrawer({ open, onClose, userId, todayIso, rules,
               </fieldset>
             ) : null}
 
-            {error ? <p role="alert" className="text-xs text-[#f87171]">{error}</p> : null}
+            {error ? <p role="alert" className="text-xs text-danger-text">{error}</p> : null}
           </div>
         </div>
 

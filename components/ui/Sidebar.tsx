@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Settings } from "lucide-react";
 import { NAV_ITEMS, isNavItemActive } from "./nav-items";
+import ThemeToggle from "./ThemeToggle";
 import type { Profile } from "@/types";
 
 interface SidebarProps {
@@ -67,7 +68,13 @@ export default function Sidebar({ profile, email }: SidebarProps) {
         })}
       </nav>
 
-      <div className="border-t border-[var(--border-1)] p-2">
+      <div className="flex flex-col gap-1 border-t border-[var(--border-1)] p-2">
+        <div className="lg:hidden">
+          <ThemeToggle />
+        </div>
+        <div className="hidden lg:block">
+          <ThemeToggle variant="row" />
+        </div>
         <Link
           href="/settings"
           aria-current={pathname.startsWith("/settings") ? "page" : undefined}

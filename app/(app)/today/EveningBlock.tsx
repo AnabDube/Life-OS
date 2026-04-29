@@ -133,7 +133,7 @@ export default function EveningBlock({
         </button>
 
         {aiError ? (
-          <p role="alert" className="mt-3 text-center text-xs text-[#f87171]">
+          <p role="alert" className="mt-3 text-center text-xs text-danger-text">
             {aiError}
           </p>
         ) : null}

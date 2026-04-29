@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Settings } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 interface TopBarProps {
   name: string | null;
@@ -38,13 +39,16 @@ export default function TopBar({ name }: TopBarProps) {
           {display}
         </p>
       </div>
-      <Link
-        href="/settings"
-        aria-label="Settings"
-        className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-fg-mid outline-none transition-colors hover:text-fg focus-visible:text-fg"
-      >
-        <Settings size={20} />
-      </Link>
+      <div className="-mr-2 flex items-center">
+        <ThemeToggle />
+        <Link
+          href="/settings"
+          aria-label="Settings"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-fg-mid outline-none transition-colors hover:text-fg focus-visible:text-fg"
+        >
+          <Settings size={20} />
+        </Link>
+      </div>
     </header>
   );
 }

@@ -9,7 +9,7 @@ const CATEGORY_TINT: Record<TimeBlock["category"], string> = {
   deen: "bg-[var(--green-glow)] text-green border-green/30",
   work: "bg-bg-3 text-fg border-[var(--border-1)]",
   trading: "bg-gold/12 text-gold border-gold/25",
-  personal: "bg-[#b39dff]/12 text-[#c4b5fd] border-[#b39dff]/25",
+  personal: "bg-purple/12 text-purple-soft border-purple/25",
 };
 
 export default function TimeBlocksList({ blocks }: TimeBlocksListProps) {
