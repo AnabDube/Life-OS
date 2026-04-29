@@ -19,8 +19,8 @@ export default function Card({
   const base =
     "rounded-[var(--radius-card)] bg-card p-5 transition-shadow";
   const variant = highlight
-    ? "border border-[var(--border-2)] shadow-[0_0_24px_var(--green-glow)]"
-    : "border border-[var(--border-1)]";
+    ? "border border-[var(--border-2)] shadow-[var(--card-shadow-highlight)]"
+    : "border border-[var(--border-1)] shadow-[var(--card-shadow)]";
   return (
     <div className={`${base} ${variant} ${className}`} {...rest}>
       {children}

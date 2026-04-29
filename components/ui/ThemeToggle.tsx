@@ -65,7 +65,7 @@ export default function ThemeToggle({
         onClick={toggle}
         aria-label={display === "dark" ? "Switch to light mode" : "Switch to dark mode"}
         className={
-          "flex h-11 w-full items-center gap-3 rounded-[10px] px-3 text-fg-mid outline-none transition-colors hover:bg-bg-2 hover:text-fg focus-visible:bg-bg-2 " +
+          "flex h-11 w-full items-center gap-3 rounded-[10px] px-3 text-fg-mid outline-none transition-colors hover:bg-bg-3 hover:text-fg focus-visible:bg-bg-3 " +
           className
         }
       >

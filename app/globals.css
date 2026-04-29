@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 /* ── Runtime theme tokens ──────────────────────────────────────────────────
-   Dark is the default. Adding `data-theme="light"` to <html> (done by the
-   pre-paint script in layout.tsx + ThemeToggle) flips every variable.
-   Tailwind utilities below reference these via @theme so the whole UI
-   switches without rebuilding. */
+   Dark stays the moody forest palette. Light is a warm parchment-and-leather
+   journal — deep forest green as a bold accent, warm tan borders, white
+   cards with soft drop shadows, never flat mint. */
 
 :root {
-  /* Surfaces */
+  /* Surfaces — dark */
   --bg: #0f1a14;
   --bg-2: #162010;
   --bg-3: #1e2d1a;
   --card: #1a2a16;
+  --sidebar-bg: rgba(22, 32, 16, 0.4);
 
   /* Brand */
   --green: #4ade80;
@@ -23,7 +23,7 @@
   --fg-mid: #8aab82;
   --fg-dim: #4d6648;
 
-  /* Semantic accents */
+  /* Semantic */
   --danger: #ef4444;
   --danger-soft: #fca5a5;
   --danger-text: #f87171;
@@ -39,55 +39,66 @@
   --border-1: rgba(74, 222, 128, 0.12);
   --border-2: rgba(74, 222, 128, 0.22);
 
-  /* Card shadow — none in dark, soft in light */
+  /* Shadows */
   --card-shadow: none;
+  --card-shadow-highlight: 0 0 24px var(--green-glow);
+
+  /* Active nav state (sidebar + bottom nav) */
+  --nav-active-bg: var(--green-glow);
+  --nav-active-fg: var(--green);
 }
 
 [data-theme="light"] {
-  /* Surfaces — soft mint / cream, never pure white background */
-  --bg: #f5f9f0;
-  --bg-2: #e8f5e2;
-  --bg-3: #d8edd0;
+  /* Surfaces — warm parchment / cream / pure white card */
+  --bg: #faf7f2;
+  --bg-2: #f0ebe0;        /* sidebar surface, input bg */
+  --bg-3: #e8f5ee;        /* hover surface, deen tint */
   --card: #ffffff;
+  --sidebar-bg: #f0ebe0;
 
-  /* Brand — accessible greens / muted gold */
-  --green: #2d7a3a;
-  --green-dim: #4a9c5a;
+  /* Brand — deep forest green, rich gold */
+  --green: #1e6b3c;
+  --green-dim: #2d8a4a;
   --gold: #b8860b;
 
-  /* Text */
-  --fg: #1a2e1a;
-  --fg-mid: #5a7a5a;
-  --fg-dim: #8aaf8a;
+  /* Text — warm browns, near-black for primary */
+  --fg: #1a1a14;
+  --fg-mid: #6b6047;
+  --fg-dim: #a89880;
 
-  /* Semantic */
-  --danger: #dc2626;
-  --danger-soft: #ef4444;
+  /* Semantic — accessible darker reds, deep purple */
+  --danger: #b91c1c;
+  --danger-soft: #c2410c;
   --danger-text: #b91c1c;
   --purple: #5b3fc4;
   --purple-soft: #7c5cf0;
-  --mint: #e8f5e2;
-  --cream: #fff8e8;
+  --mint: #e8f5ee;
+  --cream: #fff8e0;
 
-  /* Glows — gentler in light */
-  --green-glow: rgba(45, 122, 58, 0.10);
-  --green-glow-strong: rgba(45, 122, 58, 0.18);
+  /* Borders — warm tan, never green */
+  --green-glow: rgba(30, 107, 60, 0.10);
+  --green-glow-strong: rgba(30, 107, 60, 0.20);
   --gold-glow: rgba(184, 134, 11, 0.12);
-  --border-1: rgba(74, 160, 80, 0.15);
-  --border-2: rgba(74, 160, 80, 0.30);
+  --border-1: rgba(180, 160, 120, 0.20);
+  --border-2: rgba(180, 160, 120, 0.35);
 
-  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  /* Card lift — soft drop shadow on every card */
+  --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  --card-shadow-highlight: 0 4px 22px rgba(30, 107, 60, 0.18);
+
+  /* Active nav — solid forest green with white text, the bold accent */
+  --nav-active-bg: var(--green);
+  --nav-active-fg: #ffffff;
 }
 
-/* ── Tailwind theme bindings ───────────────────────────────────────────────
-   Each --color-X here registers a Tailwind utility (bg-bg, text-fg, etc.).
-   Values reference the runtime tokens above so utilities switch live. */
+/* ── Tailwind theme bindings ───────────────────────────────────────────── */
 
 @theme {
   --color-bg: var(--bg);
   --color-bg-2: var(--bg-2);
   --color-bg-3: var(--bg-3);
   --color-card: var(--card);
+  --color-sidebar-bg: var(--sidebar-bg);
 
   --color-green: var(--green);
   --color-green-dim: var(--green-dim);
@@ -104,6 +115,9 @@
   --color-purple-soft: var(--purple-soft);
   --color-mint: var(--mint);
   --color-cream: var(--cream);
+
+  --color-nav-active-bg: var(--nav-active-bg);
+  --color-nav-active-fg: var(--nav-active-fg);
 
   /* Fonts (wired by next/font in layout.tsx) */
   --font-display: var(--font-lora);
@@ -131,7 +145,8 @@ body {
     color 200ms ease;
 }
 
-/* Subtle grain texture overlay (matches prototype). Reduce opacity in light. */
+/* Subtle grain texture overlay. Stronger in dark for depth, almost invisible
+   in light so the parchment surface stays clean. */
 body::before {
   content: "";
   position: fixed;
@@ -142,7 +157,7 @@ body::before {
   opacity: 0.6;
 }
 [data-theme="light"] body::before {
-  opacity: 0.25;
+  opacity: 0.18;
 }
 
 /* hide scrollbar utility for the day strip */
@@ -171,9 +186,4 @@ body::before {
   .animate-fade-in {
     animation: none;
   }
-}
-
-/* Card shadow — applied to the shared Card component in light mode only. */
-.theme-card-shadow {
-  box-shadow: var(--card-shadow);
 }
