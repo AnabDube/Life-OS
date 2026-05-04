@@ -143,7 +143,7 @@ export default function ClassDetailDrawer({
               onBlur={() => attended !== null && void persist(attended, notes)}
               rows={3}
               placeholder="What did you learn?"
-              className="mt-3 block w-full resize-none rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
+              className="mt-3 block w-full resize-none rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
             />
           </section>
 

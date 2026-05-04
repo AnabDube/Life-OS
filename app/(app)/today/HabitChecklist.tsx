@@ -97,10 +97,10 @@ export default function HabitChecklist({
               >
                 <span
                   className={
-                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border transition-colors " +
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors " +
                     (isDone
                       ? "border-green bg-green text-bg"
-                      : "border-[var(--border-2)] bg-transparent")
+                      : "border-check-empty-border bg-transparent")
                   }
                   aria-hidden="true"
                 >

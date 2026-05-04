@@ -93,10 +93,10 @@ export default function TaskRow({ task, onToggleComplete, onDelete }: TaskRowPro
         <span
           aria-hidden="true"
           className={
-            "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border transition-colors " +
+            "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors " +
             (task.completed
               ? "border-green bg-green text-bg"
-              : "border-[var(--border-2)]")
+              : "border-check-empty-border")
           }
         >
           {task.completed ? <Check size={14} strokeWidth={3} /> : null}

@@ -60,10 +60,10 @@ export default function HabitRow({
       >
         <span
           className={
-            "flex h-6 w-6 items-center justify-center rounded-md border transition-colors " +
+            "flex h-6 w-6 items-center justify-center rounded-md border-[1.5px] transition-colors " +
             (done
               ? "border-green bg-green text-bg"
-              : "border-[var(--border-2)] bg-transparent")
+              : "border-check-empty-border bg-transparent")
           }
         >
           {done ? <Check size={14} strokeWidth={3} /> : null}

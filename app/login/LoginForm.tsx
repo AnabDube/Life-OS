@@ -46,7 +46,7 @@ export default function LoginForm({ next }: LoginFormProps) {
           placeholder="you@email.com"
           defaultValue={state.email ?? ""}
           aria-invalid={state.error ? true : undefined}
-          className="block w-full min-h-[44px] rounded-[var(--radius-card)] border border-[var(--border-1)] bg-bg-2 px-4 py-3 text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
+          className="block w-full min-h-[44px] rounded-[var(--radius-card)] border border-input-border bg-input-bg px-4 py-3 text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
         />
       </label>
       <button

@@ -68,7 +68,7 @@ function NumberField({ label, value, onChange, step = "0.0001", placeholder }: {
       <span className="mb-1 block text-[10px] uppercase tracking-wider text-fg-dim">{label}</span>
       <input
         type="number" step={step} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
-        className="block w-full rounded-md border border-[var(--border-1)] bg-bg-2 px-2 py-1.5 text-sm font-mono tabular-nums text-fg outline-none focus:border-[var(--border-2)]"
+        className="block w-full rounded-md border border-input-border bg-input-bg px-2 py-1.5 text-sm font-mono tabular-nums text-fg outline-none focus:border-[var(--border-2)]"
       />
     </label>
   );
@@ -219,11 +219,11 @@ export default function AddTradeDrawer({ open, onClose, userId, todayIso, rules,
             <div className="grid grid-cols-2 gap-2">
               <label className="block">
                 <span className="mb-1 block text-[10px] uppercase tracking-wider text-fg-dim">Date</span>
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="block w-full rounded-md border border-[var(--border-1)] bg-bg-2 px-2 py-1.5 text-sm text-fg outline-none focus:border-[var(--border-2)]" />
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="block w-full rounded-md border border-input-border bg-input-bg px-2 py-1.5 text-sm text-fg outline-none focus:border-[var(--border-2)]" />
               </label>
               <label className="block">
                 <span className="mb-1 block text-[10px] uppercase tracking-wider text-fg-dim">Pair</span>
-                <select value={pair} onChange={(e) => setPair(e.target.value)} className="block w-full rounded-md border border-[var(--border-1)] bg-bg-2 px-2 py-1.5 text-sm text-fg outline-none focus:border-[var(--border-2)]">
+                <select value={pair} onChange={(e) => setPair(e.target.value)} className="block w-full rounded-md border border-input-border bg-input-bg px-2 py-1.5 text-sm text-fg outline-none focus:border-[var(--border-2)]">
                   {FOREX_PAIRS.map((p) => <option key={p} value={p}>{p}</option>)}
                 </select>
               </label>
@@ -314,7 +314,7 @@ export default function AddTradeDrawer({ open, onClose, userId, todayIso, rules,
               <textarea
                 value={notes} onChange={(e) => setNotes(e.target.value)} rows={3}
                 placeholder="Setup, lesson learned, anything to remember…"
-                className="block w-full resize-none rounded-md border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
+                className="block w-full resize-none rounded-md border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
               />
             </label>
 

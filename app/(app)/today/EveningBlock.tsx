@@ -87,7 +87,7 @@ export default function EveningBlock({
           onBlur={() => persistReflection(reflection)}
           rows={4}
           placeholder="A small win, a hard moment, anything…"
-          className="block w-full resize-none rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
+          className="block w-full resize-none rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
         />
       </label>
 
@@ -122,7 +122,7 @@ export default function EveningBlock({
           type="button"
           onClick={reflectWithAI}
           disabled={isPending}
-          className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[10px] border border-[var(--border-2)] bg-[var(--green-glow)] px-4 py-2 text-sm font-medium text-green outline-none transition-opacity hover:opacity-90 disabled:opacity-60"
+          className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[10px] bg-nav-active-bg px-4 py-2 text-sm font-medium text-nav-active-fg outline-none transition-opacity hover:opacity-90 disabled:opacity-60"
         >
           <Sparkles size={16} />
           {isPending

@@ -46,6 +46,14 @@
   /* Active nav state (sidebar + bottom nav) */
   --nav-active-bg: var(--green-glow);
   --nav-active-fg: var(--green);
+
+  /* Form fields (inputs, textareas, selects) — separate from secondary
+     surfaces so we can make them clearly editable in light mode. */
+  --input-bg: var(--bg-2);
+  --input-border: var(--border-1);
+
+  /* Empty checkbox border — bolder in light so taps are obvious. */
+  --check-empty-border: var(--border-2);
 }
 
 [data-theme="light"] {
@@ -89,6 +97,13 @@
   /* Active nav — solid forest green with white text, the bold accent */
   --nav-active-bg: var(--green);
   --nav-active-fg: #ffffff;
+
+  /* Inputs — pure white with a clearly visible warm-tan border */
+  --input-bg: #ffffff;
+  --input-border: rgba(180, 160, 120, 0.3);
+
+  /* Empty checkbox — solid deep forest green so it reads as tappable */
+  --check-empty-border: var(--green);
 }
 
 /* ── Tailwind theme bindings ───────────────────────────────────────────── */
@@ -118,6 +133,10 @@
 
   --color-nav-active-bg: var(--nav-active-bg);
   --color-nav-active-fg: var(--nav-active-fg);
+
+  --color-input-bg: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-check-empty-border: var(--check-empty-border);
 
   /* Fonts (wired by next/font in layout.tsx) */
   --font-display: var(--font-lora);

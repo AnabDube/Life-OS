@@ -96,7 +96,7 @@ export default function MorningBlock({
           }
           rows={2}
           placeholder="Bismillah — today I will…"
-          className="block w-full resize-none rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
+          className="block w-full resize-none rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
         />
       </label>
 
@@ -113,7 +113,7 @@ export default function MorningBlock({
               className={
                 "flex h-12 flex-1 items-center justify-center rounded-[10px] border text-xl transition-colors " +
                 (mood === value
-                  ? "border-[var(--border-2)] bg-[var(--green-glow)]"
+                  ? "border-green bg-nav-active-bg ring-2 ring-green/30"
                   : "border-[var(--border-1)] bg-bg-2 hover:border-[var(--border-2)]")
               }
             >
@@ -136,7 +136,7 @@ export default function MorningBlock({
               className={
                 "h-11 flex-1 rounded-[10px] border text-sm font-medium transition-colors " +
                 (energy !== null && value <= energy
-                  ? "border-green/40 bg-green text-bg"
+                  ? "border-green bg-green text-bg ring-2 ring-green/30"
                   : "border-[var(--border-1)] bg-bg-2 text-fg-mid hover:border-[var(--border-2)]")
               }
             >
@@ -162,7 +162,7 @@ export default function MorningBlock({
               })
             }
             placeholder={i === 0 ? "Something small…" : ""}
-            className="block w-full rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
+            className="block w-full rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none transition-colors focus:border-[var(--border-2)]"
           />
         ))}
       </fieldset>

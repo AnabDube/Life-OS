@@ -113,7 +113,7 @@ export default function AddHabitModal({ open, onClose, onCreate }: AddHabitModal
             <input
               type="text" value={name} onChange={(e) => setName(e.target.value)} required maxLength={80}
               placeholder="Surah Yasin" autoFocus
-              className="block w-full rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
+              className="block w-full rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
             />
           </label>
           <label className="block">
@@ -121,7 +121,7 @@ export default function AddHabitModal({ open, onClose, onCreate }: AddHabitModal
             <input
               type="text" value={detail} onChange={(e) => setDetail(e.target.value)} maxLength={80}
               placeholder="Every Friday after Asr"
-              className="block w-full rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
+              className="block w-full rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
             />
           </label>
           <fieldset>

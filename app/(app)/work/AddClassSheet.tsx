@@ -103,7 +103,7 @@ export default function AddClassSheet({ open, onClose, onCreate }: AddClassSheet
             <input
               type="text" value={name} onChange={(e) => setName(e.target.value)} required maxLength={120} autoFocus
               placeholder="ICT Trading Bootcamp"
-              className="block w-full rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
+              className="block w-full rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
             />
           </label>
 
@@ -112,7 +112,7 @@ export default function AddClassSheet({ open, onClose, onCreate }: AddClassSheet
             <input
               type="text" value={platform} onChange={(e) => setPlatform(e.target.value)} maxLength={60}
               placeholder="Zoom, Discord, in-person…"
-              className="block w-full rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
+              className="block w-full rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg placeholder:text-fg-dim outline-none focus:border-[var(--border-2)]"
             />
           </label>
 
@@ -136,7 +136,7 @@ export default function AddClassSheet({ open, onClose, onCreate }: AddClassSheet
             </div>
             <input
               type="time" value={time} onChange={(e) => setTime(e.target.value)}
-              className="mt-2 block w-full rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg outline-none focus:border-[var(--border-2)]"
+              className="mt-2 block w-full rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg outline-none focus:border-[var(--border-2)]"
             />
           </fieldset>
 
@@ -144,7 +144,7 @@ export default function AddClassSheet({ open, onClose, onCreate }: AddClassSheet
             <span className="mb-1 block text-xs text-fg-mid">Notes (optional)</span>
             <textarea
               value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} maxLength={500}
-              className="block w-full resize-none rounded-[10px] border border-[var(--border-1)] bg-bg-2 px-3 py-2 text-sm text-fg outline-none focus:border-[var(--border-2)]"
+              className="block w-full resize-none rounded-[10px] border border-input-border bg-input-bg px-3 py-2 text-sm text-fg outline-none focus:border-[var(--border-2)]"
             />
           </label>
 
